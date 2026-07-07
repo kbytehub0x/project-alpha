@@ -1,0 +1,181 @@
+---
+name: PropTech Precision
+colors:
+  surface: '#f8f9ff'
+  surface-dim: '#cbdbf5'
+  surface-bright: '#f8f9ff'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#eff4ff'
+  surface-container: '#e5eeff'
+  surface-container-high: '#dce9ff'
+  surface-container-highest: '#d3e4fe'
+  on-surface: '#0b1c30'
+  on-surface-variant: '#404944'
+  inverse-surface: '#213145'
+  inverse-on-surface: '#eaf1ff'
+  outline: '#707974'
+  outline-variant: '#bfc9c3'
+  surface-tint: '#2b6954'
+  primary: '#003527'
+  on-primary: '#ffffff'
+  primary-container: '#064e3b'
+  on-primary-container: '#80bea6'
+  inverse-primary: '#95d3ba'
+  secondary: '#565e74'
+  on-secondary: '#ffffff'
+  secondary-container: '#dae2fd'
+  on-secondary-container: '#5c647a'
+  tertiary: '#2b2f30'
+  on-tertiary: '#ffffff'
+  tertiary-container: '#424547'
+  on-tertiary-container: '#afb2b4'
+  error: '#ba1a1a'
+  on-error: '#ffffff'
+  error-container: '#ffdad6'
+  on-error-container: '#93000a'
+  primary-fixed: '#b0f0d6'
+  primary-fixed-dim: '#95d3ba'
+  on-primary-fixed: '#002117'
+  on-primary-fixed-variant: '#0b513d'
+  secondary-fixed: '#dae2fd'
+  secondary-fixed-dim: '#bec6e0'
+  on-secondary-fixed: '#131b2e'
+  on-secondary-fixed-variant: '#3f465c'
+  tertiary-fixed: '#e0e3e5'
+  tertiary-fixed-dim: '#c4c7c9'
+  on-tertiary-fixed: '#191c1e'
+  on-tertiary-fixed-variant: '#444749'
+  background: '#f8f9ff'
+  on-background: '#0b1c30'
+  surface-variant: '#d3e4fe'
+typography:
+  display-lg:
+    fontFamily: Inter
+    fontSize: 48px
+    fontWeight: '700'
+    lineHeight: 56px
+    letterSpacing: -0.02em
+  headline-lg:
+    fontFamily: Inter
+    fontSize: 32px
+    fontWeight: '600'
+    lineHeight: 40px
+    letterSpacing: -0.01em
+  headline-lg-mobile:
+    fontFamily: Inter
+    fontSize: 24px
+    fontWeight: '600'
+    lineHeight: 32px
+  headline-md:
+    fontFamily: Inter
+    fontSize: 24px
+    fontWeight: '600'
+    lineHeight: 32px
+  title-lg:
+    fontFamily: Inter
+    fontSize: 20px
+    fontWeight: '600'
+    lineHeight: 28px
+  body-lg:
+    fontFamily: Inter
+    fontSize: 16px
+    fontWeight: '400'
+    lineHeight: 24px
+  body-md:
+    fontFamily: Inter
+    fontSize: 14px
+    fontWeight: '400'
+    lineHeight: 20px
+  label-md:
+    fontFamily: Inter
+    fontSize: 12px
+    fontWeight: '500'
+    lineHeight: 16px
+    letterSpacing: 0.05em
+  code-sm:
+    fontFamily: JetBrains Mono
+    fontSize: 12px
+    fontWeight: '400'
+    lineHeight: 16px
+rounded:
+  sm: 0.25rem
+  DEFAULT: 0.5rem
+  md: 0.75rem
+  lg: 1rem
+  xl: 1.5rem
+  full: 9999px
+spacing:
+  unit: 8px
+  container-max: 1440px
+  gutter: 24px
+  margin-desktop: 40px
+  margin-tablet: 24px
+  margin-mobile: 16px
+---
+
+## Brand & Style
+
+The design system is anchored in **Modern Minimalism** with a **Corporate Tech-Forward** edge. It is designed to bridge the gap between high-velocity AI data processing and the grounded, high-stakes world of luxury real estate. The target audience—real estate developers, brokers, and investment analysts—requires a tool that feels authoritative yet effortless to navigate.
+
+The aesthetic prioritizes clarity and precision. By utilizing heavy whitespace, a sophisticated dark-leaning neutral palette, and subtle tactile hints, the UI evokes a sense of "calm intelligence." The visual narrative is one of reliability and insight, ensuring that complex AI-driven data feels accessible and actionable rather than overwhelming.
+
+## Colors
+
+The color strategy uses a "High-End Professional" palette to establish trust.
+
+*   **Primary (Emerald Green):** `#064E3B` is used for primary actions and success states, symbolizing growth, stability, and the traditional "green" associated with premium property.
+*   **Secondary (Deep Slate):** `#0F172A` provides the structural backbone, used for sidebars, primary text, and heavy navigation elements to ground the interface.
+*   **Tertiary/Surface (Ice White):** `#F8FAFC` acts as the canvas, distinguishing card backgrounds from the main workspace to prevent visual fatigue.
+*   **Neutral (Slate Gray):** `#64748B` is reserved for secondary information, borders, and icons, maintaining a low-noise environment.
+
+Interaction states should follow a strict luminance shift: Hover states for primary elements should deepen the emerald, while secondary buttons should utilize a soft tint of the primary color.
+
+## Typography
+
+This design system utilizes **Inter** exclusively to ensure maximum legibility across data-dense dashboards. The type scale is built on a tight 4px baseline grid. 
+
+For large numeric data (property values, AI confidence scores), use `headline-lg` with a slightly tighter letter-spacing to emphasize the "technical" nature of the tool. Labels for data categories should always use the `label-md` style with uppercase casing to differentiate them from actionable text. On mobile, headlines scale down aggressively to maintain vertical rhythm without forcing excessive scrolling.
+
+## Layout & Spacing
+
+The layout follows a **Hybrid Fluid Grid** model. The sidebar remains at a fixed width (280px) to provide a persistent anchor, while the main content area fluidly expands up to a maximum width of 1440px.
+
+A strict **8px spacing system** governs all element relationships. 
+*   **Desktop:** 12-column grid with 24px gutters. Use large 40px external margins to create a "premium gallery" feel for property cards.
+*   **Tablet:** 8-column grid with 24px margins. Sidebar collapses into a drawer or icon-only rail.
+*   **Mobile:** 4-column grid with 16px margins. Information density should be reduced, prioritizing high-level AI insights over granular data tables.
+
+## Elevation & Depth
+
+Visual hierarchy is established through **Ambient Shadows** and **Tonal Layering**. 
+
+1.  **Floor (Level 0):** The main background (`#F8FAFC`).
+2.  **Raised (Level 1):** Main content cards and navigation bars use a pure white background with a very soft, diffused shadow (`Y: 2px, Blur: 4px, Color: rgba(15, 23, 42, 0.05)`).
+3.  **Overlay (Level 2):** Modals, dropdowns, and tooltips use a more pronounced shadow to indicate temporary focus (`Y: 10px, Blur: 20px, Color: rgba(15, 23, 42, 0.1)`).
+
+Avoid heavy borders; instead, use 1px strokes in a light neutral (`#E2E8F0`) to define boundaries only when necessary for data separation.
+
+## Shapes
+
+The design system employs **Rounded (0.5rem)** corners as the standard. This choice softens the "industrial" feel of data-heavy SaaS tools, making the platform feel more approachable for real estate professionals. 
+
+*   **Standard Elements (Buttons, Inputs, Cards):** 8px (0.5rem) radius.
+*   **Large Containers (Dashboard Sections):** 16px (1rem) radius.
+*   **Search Bars/Chips:** 100px (Pill-shaped) to provide a distinct visual contrast against rectangular data cards.
+
+## Components
+
+### Buttons
+Primary buttons use the Emerald Green (`#064E3B`) with white text. Secondary buttons should be ghost-style with a Slate Gray border or a soft Slate background. Transitions should be a swift 200ms ease-in-out.
+
+### Input Fields
+Fields use a solid white background with a 1px border. On focus, the border shifts to the primary green with a 2px outer glow (0.1 opacity) to guide the user's attention.
+
+### Cards (Property & AI Insights)
+Cards are the primary container. They must feature a padding of 24px (`3 units`). AI-generated insights within cards should be highlighted with a very subtle Emerald tint (`#ECFDF5`) background to distinguish machine-led data from manual entry.
+
+### Data Tables
+Tables should avoid vertical lines. Use horizontal 1px dividers only. Row hover states should utilize a subtle gray (`#F1F5F9`) to help users track data across wide screens.
+
+### Status Chips
+Use "semantic" variants of the primary green for "Active" or "Verified" statuses, while using a sophisticated Navy (`#1E293B`) for "Draft" or "Pending" states to maintain the high-end aesthetic.
