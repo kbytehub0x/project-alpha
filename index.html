@@ -180,19 +180,19 @@
 </div>
 <div class="flex flex-col gap-2">
 <label class="font-label-md text-label-md text-secondary uppercase tracking-widest">Description &amp; Specifications</label>
-<textarea class="w-full h-64 p-4 rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary/10 focus:border-primary bg-white text-body-md font-body-md transition-all outline-none resize-none" placeholder="Paste raw property notes here... e.g., 3 bed, 2 bath, marble floors, ocean view, built 2022, smart home features..."></textarea>
+<textarea id="propertyDetails" class="w-full h-64 p-4 rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary/10 focus:border-primary bg-white text-body-md font-body-md transition-all outline-none resize-none" placeholder="Paste raw property notes here... e.g., 3 bed, 2 bath, marble floors, ocean view, built 2022, smart home features..."></textarea>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="flex flex-col gap-2">
 <label class="font-label-md text-label-md text-secondary uppercase tracking-widest">Select Tone</label>
-<select class="w-full p-4 rounded-xl border border-outline-variant bg-white text-body-md font-body-md focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none appearance-none cursor-pointer">
+<select id="toneSelect" class="w-full p-4 rounded-xl border border-outline-variant bg-white text-body-md font-body-md focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none appearance-none cursor-pointer">
 <option value="professional">Professional</option>
 <option value="luxury">Luxury</option>
 <option value="enthusiastic">Enthusiastic</option>
 </select>
 </div>
 <div class="flex items-end">
-<button class="w-full bg-primary-container text-on-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 font-title-lg text-body-lg hover:brightness-110 active:scale-95 transition-all duration-200">
+<button id="generateBtn" class="w-full bg-primary-container text-on-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 font-title-lg text-body-lg hover:brightness-110 active:scale-95 transition-all duration-200">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">spark</span>
                                     Generate Listing
                                 </button>
@@ -237,7 +237,7 @@
 <p>Enter property details and click 'Generate Listing' to see the AI magic happen. Your high-end marketing copy will appear here.</p>
 </div>
 <!-- This would be hidden by default in a live app, shown here for "sample" state -->
-<div class="hidden">
+<div id="resultOutput" class="hidden whitespace-pre-wrap font-body-md text-on-surface">
 <h3 class="font-title-lg text-primary mb-4">Coastal Elegance &amp; Modern Mastery</h3>
 <p class="mb-4">Perched above the pristine coastline, this 2022 masterpiece redefines luxury living. Spanning over 4,500 square feet, the residence features hand-laid Italian marble, floor-to-ceiling glass walls, and a fully integrated smart-home ecosystem.</p>
 <ul class="list-disc pl-5 mb-4 space-y-2">
@@ -281,27 +281,45 @@
 </a>
 </nav>
 <script>
-        // Simple Micro-interaction for the Generate Button
-        const generateBtn = document.querySelector('button.bg-primary-container');
+        // Fetch logic for the Generate Button
+        const generateBtn = document.getElementById('generateBtn');
         if (generateBtn) {
-            generateBtn.addEventListener('click', function() {
+            generateBtn.addEventListener('click', async function() {
                 const resultsPlaceholder = document.querySelector('.xl\\:col-span-5 .flex-1.overflow-y-auto div');
-                const sampleOutput = document.querySelector('.xl\\:col-span-5 .flex-1.overflow-y-auto .hidden');
+                const sampleOutput = document.getElementById('resultOutput');
+
+                const description = document.getElementById('propertyDetails').value;
+                const tone = document.getElementById('toneSelect').value;
 
                 // Visual feedback
                 this.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> Generating...`;
                 this.classList.add('opacity-80');
 
-                setTimeout(() => {
+                try {
+                    const response = await fetch('/api/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ description, tone })
+                    });
+
+                    const data = await response.json();
+
                     this.innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sparkles</span> Generate Listing`;
                     this.classList.remove('opacity-80');
 
                     if (resultsPlaceholder && sampleOutput) {
                         resultsPlaceholder.classList.add('hidden');
+                        sampleOutput.innerHTML = data.result || 'No output generated.';
                         sampleOutput.classList.remove('hidden');
                         sampleOutput.parentElement.classList.remove('italic', 'opacity-60', 'flex', 'items-center', 'justify-center', 'text-center');
                     }
-                }, 1500);
+                } catch (error) {
+                    console.error("Error generating listing:", error);
+                    this.innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">error</span> Error Generating`;
+                    this.classList.remove('opacity-80');
+                }
             });
         }
     </script>
