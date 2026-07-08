@@ -156,10 +156,6 @@
 <span class="font-body-md text-body-md">Templates</span>
 </a>
 <div class="mt-auto">
-<button id="checkout-button" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all mb-2">
-<span class="material-symbols-outlined">payments</span>
-<span class="font-body-md text-body-md">Billing</span>
-</button>
 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all" href="#">
 <span class="material-symbols-outlined">settings</span>
 <span class="font-body-md text-body-md">Settings</span>
@@ -184,19 +180,19 @@
 </div>
 <div class="flex flex-col gap-2">
 <label class="font-label-md text-label-md text-secondary uppercase tracking-widest">Description &amp; Specifications</label>
-<textarea id="propertyDetails" class="w-full h-64 p-4 rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary/10 focus:border-primary bg-white text-body-md font-body-md transition-all outline-none resize-none" placeholder="Paste raw property notes here... e.g., 3 bed, 2 bath, marble floors, ocean view, built 2022, smart home features..."></textarea>
+<textarea class="w-full h-64 p-4 rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary/10 focus:border-primary bg-white text-body-md font-body-md transition-all outline-none resize-none" placeholder="Paste raw property notes here... e.g., 3 bed, 2 bath, marble floors, ocean view, built 2022, smart home features..."></textarea>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="flex flex-col gap-2">
 <label class="font-label-md text-label-md text-secondary uppercase tracking-widest">Select Tone</label>
-<select id="toneSelect" class="w-full p-4 rounded-xl border border-outline-variant bg-white text-body-md font-body-md focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none appearance-none cursor-pointer">
+<select class="w-full p-4 rounded-xl border border-outline-variant bg-white text-body-md font-body-md focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none appearance-none cursor-pointer">
 <option value="professional">Professional</option>
 <option value="luxury">Luxury</option>
 <option value="enthusiastic">Enthusiastic</option>
 </select>
 </div>
 <div class="flex items-end">
-<button id="generateBtn" class="w-full bg-primary-container text-on-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 font-title-lg text-body-lg hover:brightness-110 active:scale-95 transition-all duration-200">
+<button class="w-full bg-primary-container text-on-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 font-title-lg text-body-lg hover:brightness-110 active:scale-95 transition-all duration-200">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">spark</span>
                                     Generate Listing
                                 </button>
@@ -241,7 +237,7 @@
 <p>Enter property details and click 'Generate Listing' to see the AI magic happen. Your high-end marketing copy will appear here.</p>
 </div>
 <!-- This would be hidden by default in a live app, shown here for "sample" state -->
-<div id="resultOutput" class="hidden">
+<div class="hidden">
 <h3 class="font-title-lg text-primary mb-4">Coastal Elegance &amp; Modern Mastery</h3>
 <p class="mb-4">Perched above the pristine coastline, this 2022 masterpiece redefines luxury living. Spanning over 4,500 square feet, the residence features hand-laid Italian marble, floor-to-ceiling glass walls, and a fully integrated smart-home ecosystem.</p>
 <ul class="list-disc pl-5 mb-4 space-y-2">
@@ -286,59 +282,26 @@
 </nav>
 <script>
         // Simple Micro-interaction for the Generate Button
-        const generateBtn = document.getElementById('generateBtn');
+        const generateBtn = document.querySelector('button.bg-primary-container');
         if (generateBtn) {
-            generateBtn.addEventListener('click', async function() {
-                const resultsPlaceholder = document.querySelector('#resultOutput').previousElementSibling;
-                const sampleOutput = document.getElementById('resultOutput');
+            generateBtn.addEventListener('click', function() {
+                const resultsPlaceholder = document.querySelector('.xl\\:col-span-5 .flex-1.overflow-y-auto div');
+                const sampleOutput = document.querySelector('.xl\\:col-span-5 .flex-1.overflow-y-auto .hidden');
 
                 // Visual feedback
                 this.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> Generating...`;
                 this.classList.add('opacity-80');
 
-                try {
-                    const response = await fetch('/api/generate', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            details: document.getElementById('propertyDetails').value,
-                            tone: document.getElementById('toneSelect').value
-                        })
-                    });
-                    const data = await response.json();
-
+                setTimeout(() => {
                     this.innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sparkles</span> Generate Listing`;
                     this.classList.remove('opacity-80');
 
                     if (resultsPlaceholder && sampleOutput) {
                         resultsPlaceholder.classList.add('hidden');
                         sampleOutput.classList.remove('hidden');
-                        sampleOutput.innerHTML = `<h3>${data.description.split('\n')[0]}</h3><p>${data.description}</p>`;
                         sampleOutput.parentElement.classList.remove('italic', 'opacity-60', 'flex', 'items-center', 'justify-center', 'text-center');
                     }
-                } catch (err) {
-                    console.error(err);
-                    this.innerHTML = `<span class="material-symbols-outlined">error</span> Error`;
-                }
-            });
-        }
-
-        // Stripe Checkout
-        const checkoutButton = document.getElementById('checkout-button');
-        if (checkoutButton) {
-            checkoutButton.addEventListener('click', async () => {
-                try {
-                    const response = await fetch('/create-checkout-session', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    });
-                    const { url } = await response.json();
-                    window.location.href = url;
-                } catch (error) {
-                    console.error('Error:', error);
-                }
+                }, 1500);
             });
         }
     </script>
